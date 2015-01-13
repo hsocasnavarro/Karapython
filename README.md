@@ -12,13 +12,14 @@ This module defines the class midifile which may be used to parse and
 extract information from MIDI (.mid) files and Karaoke (.kar) files. 
 This can be useful to analyze a MIDI file or as a back-end for a
 karaoke player. The class midifile creates an object that is associated
-to the MIDI (or .kar) file being parsed. The following attributes are exposed
-by the class:
+to the MIDI (or .kar) file being parsed. The following instance attributes
+are defined:
 
 
 ATTRIBUTES:
 
         fileobject: A file type associated to the .mid or .kar file
+
         error : Error condition upon exit from the class methods. It's False
       if no error or some other type depending on the error condition
 
@@ -35,22 +36,30 @@ ATTRIBUTES:
       we would have bpm=[ [60,0.], [90,120], [60,150] ]
      
         bpm=[[120,0.]] # Midi default
+
     	microsecondsperquarternote=[[60000000./120,0.]] # Midi default
+
 	num=[[4, 0.]] # Midi default
+
     	den=[[4, 0.]] # Midi default
     
     For karaoke .kar files
     	karfile=Boolean that indicates whether the file has karaoke 
      information in the .kar format
+
      	kartrack=Track number (starting with 0) with the karaoke information
+
     	karsyl=List of strings with the kar syllabes 
+
     	kartimes=list of strings with the real-time (in seconds) associated 
      to the kar syllabes
+
      	karlinea=A list of three strings corresponding to the three lines
      that can be displayed in the karaoke. Note: Three lines is the 
      maximum that this program can handle!! Here we have the part of the
      text that has already been read and is usually displayed in a different
      color.    
+
     	karlineb=Same as above but for the text that has not yet been read
      (usually displayed by karaokes on white color). As time goes by, 
      syllabes from this string are removed and appended to the karlinea
@@ -58,11 +67,15 @@ ATTRIBUTES:
 
     Track information
        ntracks=Number of tracks in the file
+
        tracknames=List of strings with the names of each track
 
-    MIDI note information
-       patchesused=A list of pairs containing the patches (instruments) used
-     in the file. Each pair has the track number and the patch number.
+    MIDI note information 
+       patchesused=A list of lists, each element
+       containing the patches (instruments) used in the file, the
+       track number in which it was used and the time at which the
+       midi program change event was recorded
+
        notes=A list containing the note events. Each element has the
      information for each note played, with the following values:
      [note_number, velocity, patch, track, time_start, time_end]
@@ -89,6 +102,15 @@ METHODS:
      checks the karaoke information and updates the related attributes 
      (particularly karlinea and karlineb) so that they can be used
      by the caller. Need to have run load_file() before.
+
+   write_file(filein, fileout, tracks2remove, patches2remove): This
+     method replicates a MIDI or karaoke file with the option to
+     supress one or more tracks and/or instruments. filein and fileout
+     are strings with the corresponding filenames (filein must exist and
+     fileout will be overwritten). tracks2remove and patches2remove may
+     be either None or a list (can be an empty list) of integers with
+     the numbers of tracks or instruments that are not wanted in the
+     output file.
 
 
 EXAMPLES:
