@@ -80,7 +80,7 @@ ATTRIBUTES:
 
        notes=A list containing the note events. Each element has the
      information for each note played, with the following values:
-     [note_number, velocity, patch, track, time_start, time_end]
+     [note_number, velocity, channel, patch, track, time_start, time_end]
      time_start and time_end are real time in seconds. Time_end
      is the time in which a note_off event (or a note_on with 0 velocity)
      was registered for this note. Some notes may not have an associated
@@ -318,7 +318,7 @@ print m.karlinea[0]+'__'+m.karlineb[0]
                         data2=struct.unpack('>B',self.fileobject.read(1))[0]
                         iread=iread+2
                     if status1 == 0b1001 and data2 > 0: # Note on event
-                        self.notes.append([data1,data2,currentpatch,itrack,mastertime,-1])
+                        self.notes.append([data1,data2,status2,currentpatch,itrack,mastertime,-1])
                         inote=len(self.notes)-1 # If it was previously on, count it off
                         while inote >= 0:
                             if self.notes[inote][0] == data1 and self.notes[inote][2] == currentpatch:
