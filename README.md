@@ -122,3 +122,8 @@ EXAMPLES:
      example2.py adds music to it using pygame. Requires: pygame. 
      example3.py shows how to use pygame to build a graphic frontend for
      a karaoke application. Requires: pygame.
+
+## License
+
+MIT © [Hector Socas-Navarro](https://github.com/hsocasnavarro)
+
